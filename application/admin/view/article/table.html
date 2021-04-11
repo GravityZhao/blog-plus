@@ -1,0 +1,64 @@
+{extend name="common/index"}
+
+<ul class="nav nav-tabs">
+    {if isset($tabs)}
+    {foreach $tabs as $tab => $url}
+    {if isset($activeTab) and ($tab == $activeTab)}
+    <li class="active"><a href="{$url}">{$tab}</a></li>
+    {else /}
+    <li><a href="{$url}">{$tab}</a></li>
+    {/if}
+    {/foreach}
+    {/if}
+</ul>
+
+{block name="main"}
+<div style="margin-top: 15px;">
+    {if isset($msg)}
+    <div class="alert alert-danger">{$msg}</div>
+    {else /}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>文章分类</th>
+            <th>作者</th>
+            <th>文章标题</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="articles" id="article"}
+        <tr>
+            <th scope="row">{$article.id}</th>
+            <td>{$article.category.name|base64_decode}</td>
+            <td>{$article.user.username}</td>
+            <td>{$article.title|base64_decode}</td>
+            <td>{$article.create_time}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        操作
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{:url('/article/'.$article.id)}" target="_blank">查看</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{:url('/admin/article_edit/'.$article.id)}">编辑</a></li>
+                        <li><a href="{:url('/admin/article_del/'.$article.id)}">删除</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">置顶</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="pull-right">
+        {$articles|raw}
+    </div>
+    {/if}
+</div>
+{/block}

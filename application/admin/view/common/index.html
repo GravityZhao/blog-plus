@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>{if isset($title)} {$title} {else /} Document {/if}</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    {block name="css"}{/block}
+</head>
+<body>
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Blog</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="nav navbar-nav">
+                <li><a href="/">首页</a></li>
+                {foreach $navs as $name=>$list}   <!--将common.php中的naviManager设定的值导入前端-->
+                <li class="dropdown">
+                    {if (:is_array($list)}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{$name} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {php} $divider = 0; {/php}
+                        {foreach $list as $val}
+                        {if ($divider > 0)} <li role="separator" class="divider"></li> {else /} {php} $divider = 1; {/php} {/if}
+                        {foreach $val as $_name=>$_url}
+                        <li><a href="{$_url}">{$_name}</a></li>
+                        {/foreach}
+                        {/foreach}
+                    </ul>
+                    {elseif ($url = $list) /}
+                    <a href="{$url}">{$name}</a>
+                    {/if}
+                </li>
+                {/foreach}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">当前用户：{:session('user.username')}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/admin/logout">退出登录</a>    <!--使用common.php中的logout()方法退出登录-->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container" style="margin-top: 70px;">
+    <div class="row">
+        <div class="col-md-12">
+            {block name="main"}{/block}
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/static/js/jquery-3.1.1.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+{block name="js"}{/block}
+</body>
+</html>

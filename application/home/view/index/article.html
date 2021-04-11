@@ -1,0 +1,17 @@
+{extend name="common/base"}
+
+{block name="main"}
+<div class="container">
+    <div class="page-header">
+        <h1>{$article.title|base64_decode}</h1>
+        <ol class="breadcrumb">
+            <li>创建时间：{$article.create_time}</li>
+            <li>作者：{$article.User.username}</li>
+            <li>文章分类：{$article.Category.name|base64_decode}</a></li>
+        </ol>
+    </div>
+    <div class="panel-body">
+        {$article.ArticleContent.content|base64_decode}
+    </div>
+</div>
+{/block}

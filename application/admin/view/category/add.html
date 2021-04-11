@@ -1,0 +1,26 @@
+{extend name="common/index"}
+
+{block name="main"}
+
+<div style="margin-top: 15px;">
+    {if isset($msg)}
+    <div class="alert alert-danger">{$msg}</div>
+    {/if}
+
+    <form method="post" class="form-horizontal">
+        {:token()}
+        <div class="form-group">
+            <label for="name" class="col-md-2 control-label">分类名称：</label>
+            <div class="col-md-9">
+                <input type="text" name="name" id="name" class="form-control" placeholder="长度不得超过15个字符">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 col-md-push-10">
+                <button class="btn btn-primary">添加</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{/block}

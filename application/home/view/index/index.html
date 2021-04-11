@@ -1,0 +1,41 @@
+{extend name="common/base"}
+
+{block name="main"}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {volist name="articles" id="article"}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1><a href="{:url('/article/'.$article.id)}">{$article.title|base64_decode}</a></h1>
+                    <ol class="breadcrumb">
+                        <li>创建时间：{$article.create_time}</li>
+                        <li>作者：{$article.User.username}</li>
+                        <li>文章分类：<a href="?c_id={$article.Category.id}">{$article.Category.name|base64_decode}</a></li>
+                    </ol>
+                    <div>
+                        {:explode("\r\n", base64_decode($article.ArticleContent.content), 2)[0]}
+                    </div>
+                </div>
+            </div>
+            {/volist}
+
+            {$articles|raw}
+        </div>
+        <div class="col-md-4">
+            <!--<div class="input-group" style="margin-bottom: 15px;">-->
+                <!--<input type="text" class="form-control" placeholder="搜索文章...">-->
+                <!--<span class="input-group-btn">-->
+                    <!--<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>-->
+                 <!--</span>-->
+            <!--</div>-->
+            <div class="list-group">
+                <a class="list-group-item active">文章分类</a>
+                {volist name="categorys" id="category"}
+                <a href="?c_id={$category.id}" class="list-group-item">{$category.name|base64_decode}</a>
+                {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
