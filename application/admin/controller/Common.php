@@ -39,6 +39,12 @@ class Common extends Controller
                     '增加分类'  => url('/admin/category_add'),
                 ],
             ],
+            '文件管理'  =>[
+                [
+                    '上传文件' => url('#'),
+                    '文件列表' => url('#'),
+                ]
+            ],
         ]);
     }
 }

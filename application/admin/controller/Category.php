@@ -24,7 +24,6 @@ class Category extends Common
     {
         $this->assign('title', '文章分类');
         $this->assign('activeTab', '文章分类');
-
         $categorys = model('Category')->where('delete_time', null)->order('id', 'desc')->paginate(10);
         $this->assign('categorys', $categorys);
         return view();
