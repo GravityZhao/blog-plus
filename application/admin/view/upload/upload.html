@@ -11,27 +11,35 @@
         {:token()}
         <div class="form-group">
             <label for="1" class="col-md-2 control-label">选择文件：</label>
-            <div class="col-md-3">
-                <input type="file" name="upload_file" id="1" class="form-control">
+            <div class="col-md-2">
+                <input type="file" name="upload_file" id="1" class="input-lg"/>
             </div>
         </div>
         <div class="form-group">
             <label for="2" class="col-md-2 control-label">存储文件名：</label>
             <div class="col-md-3">
-               <input type="text" name="file_name" id="2" class="form-control">
+               <input type="text" name="file_name" placeholder="不输入则为原文件名" id="2" class="form-control">
             </div>
         </div>
         <div class="form-group">
-            <label for="3" class="col-md-2 control-label"></label>
-            <div>
-                <button class="btn btn-primary" id="3">上传</button>
+            <label for="content" class="col-md-2 control-label">文件描述：</label>
+            <div class="col-md-9">
+                <textarea id="content" placeholder="请输入队文件的描述" name="file_discription" class="form-control" rows="15"></textarea>
             </div>
         </div>
+<!--        //-->
 <!--        <div class="form-group">-->
-<!--            <div class="col-md-2 col-md-push-10">-->
-<!--                <button class="btn btn-primary">添加</button>-->
+<!--            <label for="content" class="col-md-2 control-label">文件描述：</label>-->
+<!--            <div class="col-md-9">-->
+<!--                <textarea id="mytextarea" placeholder="请输入队文件的描述" name="file_discription" class="form-control" rows="15"></textarea>-->
 <!--            </div>-->
 <!--        </div>-->
+<!--        //-->
+        <div class="form-group">
+            <div class="col-md-2 col-md-push-10">
+                <button class="btn btn-primary">添加</button>
+            </div>
+        </div>
     </form>
 </div>
 

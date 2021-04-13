@@ -43,6 +43,13 @@ class Upload extends Controller
     public function upload()
     {
         if(!$_FILES["upload_file"]["error"] > 0){
+            if(isset($_POST['file_name'])){
+                $filename = $_POST['file_name'];
+            }else
+            {
+                $filename = $_FILES["upload_file"]["name"];
+            }
+            $file_discription = $_POST['file_discription'];
             $allowedExts = array("apk","exe");
             $temp = explode("." , $_FILES["upload_file"]["name"]);
             $extension = end($temp);
@@ -62,12 +69,12 @@ class Upload extends Controller
                                 move_uploaded_file($_FILES['upload_file']['tmp_name'],"../public/upload_file/apk_file/".$_FILES["upload_file"]["name"]);
                                 $file_path="../public/upload_file/apk_file/".$_FILES["upload_file"]["name"];
                             }
-                            if($extension == "exe"){
-                                move_uploaded_file($_FILES['upload_file']['tmp_name'],"../public/upload_file/exe_file/".$_FILES["upload_file"]["name"]);
-                                $file_path="../public/upload_file/exe_file/".$_FILES["upload_file"]["name"];
+                            if($extension == "exe") {
+                                move_uploaded_file($_FILES['upload_file']['tmp_name'], "../public/upload_file/exe_file/" . $_FILES["upload_file"]["name"]);
+                                $file_path = "../public/upload_file/exe_file/" . $_FILES["upload_file"]["name"];
                             }
                             //文件信息
-                            $file_name = $_FILES["upload_file"]["name"];
+                            $file_name = $filename;
                             $upload_time = time();
                             $upload_user = session('user.username');
                             $file_size = $_FILES["upload_file"]["size"];
@@ -83,6 +90,7 @@ class Upload extends Controller
                                 'file_type' => "$file_type",
                                 'file_hash' => "$file_hash",
                                 'path' => "$path",
+                                'discription' => "$file_discription",
                             ];
                             Db::name('file')->insert($info);
                             echo "插入成功";
@@ -99,11 +107,4 @@ class Upload extends Controller
             }
         }
     }
-
-//    public function file()
-//    {
-//        Db::name('file')->insert("$data");
-//        echo "插入成功";
-//    }
-
 }
