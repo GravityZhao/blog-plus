@@ -19,4 +19,6 @@ Route::group('admin', function () {
     Route::rule('/category_add', 'admin/Category/add', 'get|post');  //标签增加
     Route::rule('/category_edit/[:id]', 'admin/Category/edit', 'get|post');  //标签更改
     Route::rule('/category_del/:id', 'admin/Category/del','get|post');  //标签删除
+
+    Route::get('/file_upload','admin/upload');
 });
