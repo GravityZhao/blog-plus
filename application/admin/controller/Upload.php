@@ -5,7 +5,8 @@ namespace app\admin\controller;
 
 use think\Db;
 use think\Controller;
-use app\admin\model\File;
+use app\common\model\File;
+use think\response\Download;
 
 class Upload extends Controller
 {
@@ -104,6 +105,22 @@ class Upload extends Controller
 //                echo '<script>alert("文件已存在")</script>';
                 $this->error("该文件已存在","/admin/upload");
             }
+        }
+    }
+
+    public function download()
+    {
+        if(is_set($_POST['file_id'])){
+            $file_name = File::where('id')->select('file_name');
+            $file_type = File::where('id')->select('file_type');
+            $file_hash = File::where('id')->select('file_hash');
+            $download =  new \think\response\Download('image.jpg');
+            return $download->name('/public/upload_file/'.$file_type.'_file/'."$file_name");
+            // 或者使用助手函数完成相同的功能
+            // download是系统封装的一个助手函数
+            return download('$filename', "$file_hash".'.'."$file_type");
+        } else {
+            $this->error("非法请求");
         }
     }
 }
